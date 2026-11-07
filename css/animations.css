@@ -1,0 +1,159 @@
+/* ==========================================================================
+   SONU'S PERSONAL PORTFOLIO — ANIMATIONS & KEYFRAMES
+   Smooth, subtle, performant CSS-based animations
+   Strictly complies with prefers-reduced-motion
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. KEYFRAME ANIMATIONS
+   -------------------------------------------------------------------------- */
+
+/* Subtle vertical float for badges */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-1.5deg);
+  }
+}
+
+@keyframes floatFast {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(7px) rotate(2deg);
+  }
+}
+
+/* Subtle glow breathing */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.18;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.28;
+    transform: scale(1.03);
+  }
+}
+
+/* Status indicator ping */
+@keyframes statusPing {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Fade in up keyframe */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. HERO ENTRANCE (IMMEDIATE CRISP VISIBILITY)
+   -------------------------------------------------------------------------- */
+.hero-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-status-badge.hero-animate,
+  .hero-word.hero-animate,
+  .hero-portrait-wrapper.hero-animate,
+  .hero-footer.hero-animate {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. SCROLL REVEAL UTILITIES (DRIVEN BY INTERSECTION OBSERVER)
+   -------------------------------------------------------------------------- */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays */
+.reveal-item[data-delay="100"] {
+  transition-delay: 0.1s;
+}
+
+.reveal-item[data-delay="150"] {
+  transition-delay: 0.15s;
+}
+
+.reveal-item[data-delay="200"] {
+  transition-delay: 0.2s;
+}
+
+.reveal-item[data-delay="300"] {
+  transition-delay: 0.3s;
+}
+
+.reveal-item[data-delay="400"] {
+  transition-delay: 0.4s;
+}
+
+/* Subtle pulse glow on the portrait backplate */
+.portrait-backplate-glow {
+  animation: pulseGlow 6s ease-in-out infinite;
+}
+
+/* Pulsing dot for active status */
+.status-indicator-dot {
+  animation: statusPing 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* --------------------------------------------------------------------------
+   3. ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .badge-cross,
+  .badge-capsule,
+  .portrait-backplate-glow,
+  .status-indicator-dot {
+    animation: none !important;
+  }
+}
